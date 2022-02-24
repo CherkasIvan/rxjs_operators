@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background: black;
+  color: white
+}
+
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+}
+
+a:focus {
+  color: red
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  margin: .5rem 0;
+  width: 15vw;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  color: white
+}
