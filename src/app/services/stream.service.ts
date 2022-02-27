@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { interval, map, take } from 'rxjs';
+import { delay, interval, map, repeat, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,17 +9,17 @@ export class StreamService {
 
   public source1 = interval(200).pipe(
     take(10),
-    map((val) => 'source1 val = ' + val)
+    map((val) => val)
   );
 
   public source2 = interval(300).pipe(
     take(10),
-    map((val) => 'source2 val = ' + val)
+    map((val) => val)
   );
 
   public source3 = interval(400).pipe(
     take(10),
-    map((val) => 'source3 val = ' + val)
+    map((val) => val)
   );
 
   constructor() {}

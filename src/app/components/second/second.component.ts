@@ -1,5 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { concat, delay, interval, map, of, repeat, switchMap, tap } from 'rxjs';
+import {
+  concat,
+  delay,
+  filter,
+  first,
+  interval,
+  map,
+  mergeAll,
+  of,
+  repeat,
+  switchAll,
+  switchMap,
+  take,
+  takeUntil,
+  takeWhile,
+  tap,
+} from 'rxjs';
 
 import { StreamService } from '../../services/stream.service';
 
@@ -10,15 +26,16 @@ import { StreamService } from '../../services/stream.service';
 })
 export class SecondComponent implements OnInit {
   time_out$: any;
-  time_out_data$: any;
-  clicks = this.streamService.numbers$;
+  time_out_data$: Array<number> = [];
+  divised_el$: Array<number> = [];
+  firstStream$ = this.streamService.numbers$;
 
   constructor(private streamService: StreamService) {}
 
   ngOnInit(): void {}
 
   public get_timeout_data(): void {
-    this.clicks
+    this.firstStream$
       .pipe(
         switchMap((ev) => interval(500)),
         delay(200),
@@ -30,10 +47,18 @@ export class SecondComponent implements OnInit {
   }
 
   public get_even_timeout_data(): void {
-    concat(this.clicks).subscribe((value) => (this.time_out_data$ = value));
+    concat(this.firstStream$, this.streamService.numbers$).subscribe((value) =>
+      this.time_out_data$.push(value)
+    );
   }
 
-  // public get_devised_elements(): void {
-  //   this.firstService.divised_el();
-  // }
+  public get_devised_elements(): void {
+    this.firstStream$
+      .pipe(
+        filter((value) => (value % 2 === 0)),
+        delay(300), 
+        repeat(5)
+      )
+      .subscribe((value: number) => this.divised_el$.push(value));
+  }
 }
