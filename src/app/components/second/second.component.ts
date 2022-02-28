@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   concat,
   delay,
@@ -7,8 +7,11 @@ import {
   interval,
   map,
   mergeAll,
+  mergeMap,
   of,
   repeat,
+  Subject,
+  Subscription,
   switchAll,
   switchMap,
   take,
@@ -24,11 +27,12 @@ import { StreamService } from '../../services/stream.service';
   templateUrl: './second.component.html',
   styleUrls: ['./second.component.scss'],
 })
-export class SecondComponent implements OnInit {
-  time_out$: any;
+export class SecondComponent {
+  time_out$: Array<number> = [];
   time_out_data$: Array<number> = [];
   divised_el$: Array<number> = [];
   firstStream$ = this.streamService.numbers$;
+  secondStream$ = this.streamService.numbers$;
 
   constructor(private streamService: StreamService) {}
 
@@ -36,29 +40,35 @@ export class SecondComponent implements OnInit {
 
   public get_timeout_data(): void {
     this.firstStream$
-      .pipe(
-        switchMap((ev) => interval(500)),
-        delay(200),
-        repeat(1000)
-      )
-      .subscribe((x: any) => {
-        this.time_out$ = x;
+      .pipe(mergeMap((ev) => of(ev).pipe(delay(200), repeat(4))))
+      .subscribe((x: number) => {
+        this.time_out$.push(x);
       });
   }
 
   public get_even_timeout_data(): void {
-    concat(this.firstStream$, this.streamService.numbers$).subscribe((value) =>
+    concat(this.secondStream$, this.streamService.numbers$).subscribe((value) =>
       this.time_out_data$.push(value)
     );
   }
 
   public get_devised_elements(): void {
-    this.firstStream$
+    this.secondStream$
       .pipe(
-        filter((value) => (value % 2 === 0)),
-        delay(300), 
-        repeat(5)
+        mergeMap((ev) =>
+          of(ev).pipe(
+            filter((value) => value % 2 === 0),
+            delay(200),
+            repeat(4)
+          )
+        )
       )
+      .subscribe((value: number) => this.divised_el$.push(value));
+  }
+
+  public get_all_mult_el(): void {
+    this.secondStream$
+      .pipe(switchMap((element) => of(element).pipe(delay(300), repeat(4))))
       .subscribe((value: number) => this.divised_el$.push(value));
   }
 }
