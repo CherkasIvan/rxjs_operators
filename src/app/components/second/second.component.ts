@@ -31,6 +31,7 @@ export class SecondComponent {
   time_out$: Array<number> = [];
   time_out_data$: Array<number> = [];
   divised_el$: Array<number> = [];
+  multiple_el$: Array<number> = [];
   firstStream$ = this.streamService.numbers$;
   secondStream$ = this.streamService.numbers$;
 
@@ -68,7 +69,7 @@ export class SecondComponent {
 
   public get_all_mult_el(): void {
     this.secondStream$
-      .pipe(switchMap((element) => of(element).pipe(delay(300), repeat(4))))
-      .subscribe((value: number) => this.divised_el$.push(value));
+      .pipe(switchMap((element) => of(element).pipe(delay(300), repeat(3))))
+      .subscribe((value: number) => this.multiple_el$.push(value));
   }
 }
