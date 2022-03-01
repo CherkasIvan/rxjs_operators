@@ -8,9 +8,9 @@ import { StreamService } from '../../services/stream.service';
   styleUrls: ['./first.component.scss'],
 })
 export class FirstComponent implements OnInit {
-  x3$: Array<number> = [];
-  seven_elements$: Array<number> = [];
-  divisor$: Array<number> = [];
+  public x3$: number[] = [];
+  public seven_elements$: number[] = [];
+  public divisor$: number[] = [];
 
   constructor(private streamService: StreamService) {}
 
@@ -18,7 +18,7 @@ export class FirstComponent implements OnInit {
 
   public get_x3(): void {
     this.streamService.numbers$
-      .pipe(map((value) => value * 3))
+      .pipe(map((value: number) => value * 3))
       .subscribe((value: number) => {
         this.x3$.push(value);
       });
@@ -26,13 +26,13 @@ export class FirstComponent implements OnInit {
 
   public seven_el() {
     this.streamService.numbers$
-      .pipe(takeWhile((value) => value < 7))
-      .subscribe((value) => this.seven_elements$.push(value));
+      .pipe(takeWhile((value: number) => value < 7))
+      .subscribe((value: number) => this.seven_elements$.push(value));
   }
 
   public divised_el() {
     this.streamService.numbers$
-      .pipe(filter((value) => value % 2 === 0))
+      .pipe(filter((value: number) => value % 2 === 0))
       .subscribe((value: number) => this.divisor$.push(value));
   }
 }
