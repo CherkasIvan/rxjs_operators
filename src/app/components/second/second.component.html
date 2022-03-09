@@ -1,9 +1,10 @@
 <div class="wrapper">
-  <button class="time_out" (click)="get_timeout_data()">Time out</button>
+  <button class="time_out" (click)="get_timeout_data()">Repeating element</button>
   <p>{{time_out$ | json}}</p>
-  <button class="second_streem" (click)="get_even_timeout_data()">Second streem</button>
+  <button class="second_streem" (click)="get_even_timeout_data()">Concated streem</button>
   <p>{{time_out_data$ | json}}</p>
-  <button class="Even_timeout" (click)="get_devised_elements()">Even timeout</button>
+  <button class="Even_timeout" (click)="get_devised_elements()">Even elements</button>
   <p>{{divised_el$ | json}}</p>
-  <button class="repeat">Repeat</button>
+  <button class="repeat" (click)="get_all_mult_el()">Repeat</button>
+  <p>{{multiple_el$ | json}}</p>
 </div>

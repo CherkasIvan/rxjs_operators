@@ -1,8 +1,8 @@
 <div class="wrapper">
-  <button class="array">New Array</button>
+  <button class="array" (click)="get_new_array()">New Array</button>
+  <p>{{new__arr$ | json}}</p>
+  <button class="complete" (click)="get_complete_array()">Completed three values in tha array</button>
   <p>{{new__complete_arr$ | json}}</p>
-  <button class="complete" (click)="get_complete_array()">Complete streems</button>
-  <p>{{new__complete_arr$ | json}}</p>
-  <button class="all_new_array" (click)="get_three_new_el()">All new array</button>
+  <button class="all_new_array" (click)="get_three_new_el()">Values ​​of the three streams</button>
   <p>{{three_new_el$ | json}}</p>
 </div>
