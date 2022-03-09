@@ -29,8 +29,6 @@ export class ThirdComponent implements OnInit {
   public secondStream$: Observable<number> = this.streamService.source2;
   public thirdStream$: Observable<number> = this.streamService.source3;
 
-  public intermediate_value$: number[] = [];
-
   constructor(private streamService: StreamService) {}
 
   ngOnInit(): void {}
@@ -39,7 +37,9 @@ export class ThirdComponent implements OnInit {
   public get_new_array(): void {
     this.firstStream$
       .pipe(combineLatest(this.secondStream$, this.thirdStream$))
-      .subscribe((value: number[]) => this.new__arr$.push(...value));
+      .subscribe(
+        (value: number[]) => (this.new__arr$ = [...this.new__arr$, ...value])
+      );
   }
 
   // Completed three values in tha array
@@ -55,13 +55,9 @@ export class ThirdComponent implements OnInit {
   //All Values ​​of the three streams in order
   public get_three_new_el(): void {
     zip(this.firstStream$, this.secondStream$, this.thirdStream$)
-      .pipe(
-        map(([firstElements, secondsElements, thirdElements]) => [
-          firstElements,
-          secondsElements,
-          thirdElements,
-        ])
-      )
-      .subscribe((value: number[]) => this.three_new_el$.push(...value));
+      .subscribe(
+        (value: number[]) =>
+          (this.three_new_el$ = [...this.three_new_el$, ...value])
+      );
   }
 }

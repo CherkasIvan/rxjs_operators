@@ -45,9 +45,9 @@ export class SecondComponent {
   // Repeating element
   public get_timeout_data(): void {
     this.firstStream$
-      .pipe(mergeMap((ev: number) => of(ev).pipe(delay(200), repeat(4))))
+      .pipe(switchMap((ev: number) => of(ev).pipe(delay(200), repeat(4))))
       .subscribe((x: number) => {
-        this.time_out$.push(x);
+        this.time_out$ = [...this.time_out$, x];
       });
   }
 
@@ -55,7 +55,10 @@ export class SecondComponent {
   public get_even_timeout_data(): void {
     this.firstStream$
       .pipe(concatMap((value: number) => this.streamService.numbers$))
-      .subscribe((value: number) => this.time_out_data$.push(value));
+      .subscribe(
+        (value: number) =>
+          (this.time_out_data$ = [...this.time_out_data$, value])
+      );
   }
 
   // Even elements
@@ -70,7 +73,9 @@ export class SecondComponent {
           )
         )
       )
-      .subscribe((value: number) => this.divised_el$.push(value));
+      .subscribe(
+        (value: number) => (this.divised_el$ = [...this.divised_el$, value])
+      );
   }
 
   // is not completed
@@ -79,6 +84,8 @@ export class SecondComponent {
       .pipe(
         mergeMap((element: number) => of(element).pipe(delay(300), repeat(3)))
       )
-      .subscribe((value: number) => this.multiple_el$.push(value));
+      .subscribe(
+        (value: number) => (this.multiple_el$ = [...this.multiple_el$, value])
+      );
   }
 }

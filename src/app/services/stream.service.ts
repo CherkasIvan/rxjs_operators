@@ -17,7 +17,7 @@ export class StreamService {
     map((val) => val)
   );
 
-  public source3: Observable<number> = interval(400).pipe(
+  public source3 = interval(400).pipe(
     take(10),
     map((val) => val)
   );

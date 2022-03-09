@@ -20,19 +20,24 @@ export class FirstComponent implements OnInit {
     this.streamService.numbers$
       .pipe(map((value: number) => value * 3))
       .subscribe((value: number) => {
-        this.x3$.push(value);
+        this.x3$ = [...this.x3$, value];
       });
   }
 
   public seven_el() {
     this.streamService.numbers$
       .pipe(takeWhile((value: number) => value < 7))
-      .subscribe((value: number) => this.seven_elements$.push(value));
+      .subscribe(
+        (value: number) =>
+          (this.seven_elements$ = [...this.seven_elements$, value])
+      );
   }
 
   public divised_el() {
     this.streamService.numbers$
       .pipe(filter((value: number) => value % 2 === 0))
-      .subscribe((value: number) => this.divisor$.push(value));
+      .subscribe(
+        (value: number) => (this.divisor$ = [...this.divisor$, value])
+      );
   }
 }
