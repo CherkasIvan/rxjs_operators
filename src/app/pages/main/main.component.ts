@@ -1,76 +1,44 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, Subject, take, takeUntil, tap } from 'rxjs';
-import { StreamService } from '../../services/stream.service';
-import { IUser } from 'src/app/models/user/user.model';
+import { Component } from '@angular/core';
+import { ROUTE_ANIMATIONS } from 'src/assets/animations/route.animation';
+import { ChildrenOutletContexts, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
+  animations: [ROUTE_ANIMATIONS],
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit, OnDestroy  {
-  evenFilter: number[] = []
-  totalNumbersCount: number = 0;
-  allStreamNumbers: number[] = [];
-  isStreamCompleted: boolean = false;
+export class MainComponent {
+  isMenuOpen = false;
 
-  destroy$ = new Subject()
+  navigationItems = [
+    { path: '/dashboard', label: 'Главная', icon: '🏠' },
+    { path: '/typescript', label: 'TypeScript задания', icon: '📘' },
+    { path: '/rxjs', label: 'RxJS & Observables', icon: '🔄' },
+    { path: '/signals', label: 'Angular Signals', icon: '📡' },
+    { path: '/ngrx', label: 'NgRx Store', icon: '🏪' },
+    { path: '/combined', label: 'Комбинированные задачи', icon: '🎯' }
+  ];
 
-  searchedUsers: IUser[] = []
-  selectedUser: IUser | null = null // Добавляем переменную для выбранного пользователя
+  constructor(
+    private contexts: ChildrenOutletContexts,
+    private router: Router
+  ) {}
 
-  constructor(private streamService: StreamService){
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
-  getEvenOfFirstSeven(){
-    this.evenFilter = []; 
-    this.isStreamCompleted = false;
-    this.streamService.numbers$.pipe(
-      take(7),
-      takeUntil(this.destroy$),
-      tap((num:number) => {
-        this.allStreamNumbers.push(num);
-      }),
-      filter((num: number) => num % 2 === 0),
-      tap((el:number) => {
-        this.evenFilter.push(el)
-        this.totalNumbersCount = this.evenFilter.length;
-      })
-    ).subscribe({
-      complete: () => {
-        this.isStreamCompleted = true;
-      }
-    })
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 
-  searchUsersByInput(query: string) {
-    this.searchUsers(query);
+  navigateTo(path: string) {
+    this.router.navigate([path]);
+    this.closeMenu();
   }
 
-  onUserSelected(user: IUser) {
-    this.selectedUser = user;
-    this.searchedUsers = [user]; 
-  }
-
-  ngOnInit(): void {
-    this.searchUsers('');
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
-
-  searchUsers(query: string = '') {
-    // Сбрасываем выбранного пользователя при новом поиске
-    if (query !== (this.selectedUser?.name || '')) {
-      this.selectedUser = null;
-    }
-    
-    this.streamService.searchUsers(query).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(response => {
-      this.searchedUsers = response || [];
-    });
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 }

@@ -1,69 +1,36 @@
-<div class="wrapper">
-  <div class="base-info">
-    <h2 class="title">
-      1. Базовое создание и управление потоком
-    </h2>
-    <details class="description">
-      Создайте Observable с помощью interval, который    испускает числа каждую секунду. Используйте операторы take и filter, чтобы получить только первые 7 чисел, но из них только чётные. Добавьте tap для логирования каждого сгенерированного числа до фильтрации.
-    </details>
-    <div *ngIf="isStreamCompleted" class="total-count">
-      Общее количество цифр в стриме по условию: {{ totalNumbersCount }}
+<div class="main-layout">
+  <aside class="sidebar" [class.sidebar-open]="isMenuOpen">
+    <div class="sidebar-header">
+      <h2>Angular Learning</h2>
+      <button class="close-btn" (click)="closeMenu()">×</button>
     </div>
-  </div>
-
-  <app-stream-row 
-    [streamValues]="evenFilter"
-    [allNumbers]="allStreamNumbers"
-    buttonTitle="Четные из потока семи цифр"
-    (getEvenOfFirstSeven)="getEvenOfFirstSeven()">
-  </app-stream-row>
-
-    <div class="base-info">
-    <h2 class="title">
-      2. Реализуйте поиск с автодополнением для фруктов. Создайте Observable из событий ввода в текстовое поле с помощью fromEvent.
-    </h2>
-    <details class="description">
+    
+    <nav class="sidebar-nav">
       <ul>
-        <ol
-          >Оптимизация производительности:
-          Используйте debounceTime с задержкой 300 мс
-          Применяйте distinctUntilChanged для исключения повторяющихся значений
-        </ol>
-        <ol>
-          Обработка значения:
-          В операторе map извлекайте значение из события (event.target.value)
-          Приводите значение к нижнему регистру и обрезайте пробелы
-        </ol>
-        <ol>
-          Работа с данными:
-          Для каждого введенного значения выполняйте HTTP-запрос через моковый сервис searchUsers
-          Данные должны браться из JSON-файла с фруктами
-          Сервис должен имитировать задержку сети в 500 мс
-        </ol>
-        <ol>
-          Логика отображения:
-          При совпадении введенных символов с данными из JSON - показывать выпадающий список с результатами
-          Если совпадений нет - отображать сообщение 'Фрукт не найден'
-          Список должен обновляться при каждом изменении ввода (после debounce)
-        </ol>
-        <ol>
-          Структура данных:
-          JSON-файл должен содержать массив строк с названиями фруктов
-          Моковый сервис searchUsers должен возвращать Observable&lt;string[]&gt;
-        </ol>
+        <li *ngFor="let item of navigationItems" 
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }">
+          <a [routerLink]="item.path" (click)="closeMenu()">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </li>
       </ul>
-      <h3>
-        Цель: Создать отзывчивый интерфейс поиска с оптимизированными запросами и обработкой состояния 'не найдено'."
-      </h3>
-    </details>
-    <div *ngIf="isStreamCompleted" class="total-count">
-      Общее количество цифр в стриме по условию: {{ totalNumbersCount }}
-    </div>
-  </div>
+    </nav>
+  </aside>
 
-  <app-selectable-input
-    [allUsers]="searchedUsers"
-    (getInputString)="searchUsersByInput($event)"
-    >
-  </app-selectable-input>
+  <main class="main-content">
+    <header class="top-header">
+      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+      <h1>Angular Learning Platform</h1>
+    </header>
+
+    <div class="content-wrapper" [@routeAnimations]="getRouteAnimationData()">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <div class="overlay" 
+       [class.overlay-visible]="isMenuOpen" 
+       (click)="closeMenu()"></div>
 </div>
