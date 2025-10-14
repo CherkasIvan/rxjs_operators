@@ -1,26 +1,26 @@
+// src/app/pages/rxjs/rxjs.component.ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { filter, Subject, take, takeUntil, tap } from 'rxjs';
 import { StreamService } from '../../services/stream.service';
-import { IUser } from 'src/app/models/user/user.model';
+import { IUser } from '../../models/user/user.model';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'app-rxjs',
+  templateUrl: './rxjs.component.html',
+  styleUrls: ['./rxjs.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy  {
-  evenFilter: number[] = []
+export class RxJsComponent implements OnInit, OnDestroy { 
+  evenFilter: number[] = [];
   totalNumbersCount: number = 0;
   allStreamNumbers: number[] = [];
   isStreamCompleted: boolean = false;
+  
+  destroy$ = new Subject();
+  
+  searchedUsers: IUser[] = [];
+  selectedUser: IUser | null = null;
 
-  destroy$ = new Subject()
-
-  searchedUsers: IUser[] = []
-  selectedUser: IUser | null = null // Добавляем переменную для выбранного пользователя
-
-  constructor(private streamService: StreamService){
-  }
+  constructor(private streamService: StreamService){}
 
   getEvenOfFirstSeven(){
     this.evenFilter = []; 
@@ -43,11 +43,11 @@ export class MainComponent implements OnInit, OnDestroy  {
     })
   }
 
-  searchUsersByInput(query: string) {
+  searchUsersByInput(query: any) {
     this.searchUsers(query);
   }
 
-  onUserSelected(user: IUser) {
+  onUserSelected(user: any) {
     this.selectedUser = user;
     this.searchedUsers = [user]; 
   }
@@ -62,7 +62,6 @@ export class MainComponent implements OnInit, OnDestroy  {
   }
 
   searchUsers(query: string = '') {
-    // Сбрасываем выбранного пользователя при новом поиске
     if (query !== (this.selectedUser?.name || '')) {
       this.selectedUser = null;
     }

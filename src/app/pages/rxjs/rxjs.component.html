@@ -4,7 +4,7 @@
       1. Базовое создание и управление потоком
     </h2>
     <details class="description">
-      Создайте Observable с помощью interval, который    испускает числа каждую секунду. Используйте операторы take и filter, чтобы получить только первые 7 чисел, но из них только чётные. Добавьте tap для логирования каждого сгенерированного числа до фильтрации.
+      Создайте Observable с помощью interval, который испускает числа каждую секунду. Используйте операторы take и filter, чтобы получить только первые 7 чисел, но из них только чётные. Добавьте tap для логирования каждого сгенерированного числа до фильтрации.
     </details>
     <div *ngIf="isStreamCompleted" class="total-count">
       Общее количество цифр в стриме по условию: {{ totalNumbersCount }}
@@ -18,14 +18,13 @@
     (getEvenOfFirstSeven)="getEvenOfFirstSeven()">
   </app-stream-row>
 
-    <div class="base-info">
+  <div class="base-info">
     <h2 class="title">
       2. Реализуйте поиск с автодополнением для фруктов. Создайте Observable из событий ввода в текстовое поле с помощью fromEvent.
     </h2>
     <details class="description">
       <ul>
-        <ol
-          >Оптимизация производительности:
+        <ol>Оптимизация производительности:
           Используйте debounceTime с задержкой 300 мс
           Применяйте distinctUntilChanged для исключения повторяющихся значений
         </ol>
@@ -56,14 +55,16 @@
         Цель: Создать отзывчивый интерфейс поиска с оптимизированными запросами и обработкой состояния 'не найдено'."
       </h3>
     </details>
-    <div *ngIf="isStreamCompleted" class="total-count">
-      Общее количество цифр в стриме по условию: {{ totalNumbersCount }}
-    </div>
   </div>
 
   <app-selectable-input
     [allUsers]="searchedUsers"
-    (getInputString)="searchUsersByInput($event)"
-    >
+    (search)="searchUsersByInput($event)"
+    (itemSelected)="onUserSelected($event)">
   </app-selectable-input>
+
+  <div *ngIf="selectedUser" class="selected-user">
+    <h3>Selected User:</h3>
+    <p>{{ selectedUser.name }} - {{ selectedUser.email }}</p>
+  </div>
 </div>
