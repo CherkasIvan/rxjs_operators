@@ -1,0 +1,141 @@
+.user-list-container {
+  margin: 0;
+  
+  h3 {
+    color: #333;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+    font-size: 1.3em;
+  }
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.user-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+}
+
+.user-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  
+  .user-name {
+    margin: 0 0 4px 0;
+    color: #2c3e50;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  
+  .username {
+    color: #7f8c8d;
+    font-size: 0.9em;
+  }
+}
+
+.user-contact {
+  margin-bottom: 16px;
+  
+  p {
+    margin: 6px 0;
+    font-size: 0.9em;
+    color: #555;
+    
+    &.email {
+      color: #3498db;
+    }
+    
+    &.phone {
+      color: #27ae60;
+    }
+    
+    &.website {
+      color: #9b59b6;
+    }
+  }
+}
+
+.user-company {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  
+  p {
+    margin: 4px 0;
+    
+    &.company-name {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    &.catch-phrase {
+      font-style: italic;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    
+    &.business {
+      color: #95a5a6;
+      font-size: 0.85em;
+    }
+  }
+}
+
+.user-address {
+  padding: 12px;
+  background: #fff3cd;
+  border-radius: 6px;
+  border-left: 4px solid #ffc107;
+  
+  .address-title {
+    margin-top: 0;
+    color: #856404;
+    font-weight: 600;
+  }
+  
+  p {
+    margin: 4px 0;
+    font-size: 0.9em;
+    color: #856404;
+    
+    &.street {
+      font-weight: 500;
+    }
+    
+    &.city {
+      color: #d39e00;
+    }
+    
+    &.geo {
+      font-size: 0.8em;
+      color: #fd7e14;
+    }
+  }
+}
+
+.no-users {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  font-size: 1.1em;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+}

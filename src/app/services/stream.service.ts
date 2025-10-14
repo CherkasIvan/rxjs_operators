@@ -1,26 +1,58 @@
 import { Injectable } from '@angular/core';
-import { delay, interval, map, Observable, repeat, take } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { delay, interval, map, Observable, take } from 'rxjs';
+import { IUser } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StreamService {
-  public numbers$: Observable<number> = interval(1000).pipe(take(20));
+  public numbers$: Observable<number> = interval(1000).pipe(take(100));
+  private apiUrl = 'https://jsonplaceholder.typicode.com';
 
-  public source1: Observable<number> = interval(200).pipe(
-    take(10),
-    map((val) => val)
-  );
+  constructor(private http: HttpClient) { }
 
-  public source2: Observable<number> = interval(300).pipe(
-    take(10),
-    map((val) => val)
-  );
+  getAllUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.apiUrl}/users`);
+  }
+  
+  searchUsers(query: string): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.apiUrl}/users`).pipe(
+      delay(300),
+      map((users: IUser[]) => {
+        if (!query || query.trim() === '') {
+          return users;
+        }
 
-  public source3 = interval(400).pipe(
-    take(10),
-    map((val) => val)
-  );
-
-  constructor() {}
+        const searchTerm = query.toLowerCase().trim();
+        return users.filter(user => 
+          user.name.toLowerCase().includes(searchTerm) ||
+          user.username.toLowerCase().includes(searchTerm) ||
+          user.email.toLowerCase().includes(searchTerm) ||
+          user.phone.toLowerCase().includes(searchTerm) ||
+          user.website.toLowerCase().includes(searchTerm) ||
+          user.company.name.toLowerCase().includes(searchTerm) ||
+          user.address.city.toLowerCase().includes(searchTerm) ||
+          user.address.street.toLowerCase().includes(searchTerm) ||
+          user.address.zipcode.toLowerCase().includes(searchTerm)
+        );
+      })
+    );
+  }
+  
+  getUserById(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}/users/${id}`);
+  }
+  
+  createUser(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(`${this.apiUrl}/users`, user);
+  }
+  
+  updateUser(id: number, user: Partial<IUser>): Observable<IUser> {
+    return this.http.patch<IUser>(`${this.apiUrl}/users/${id}`, user);
+  }
+  
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
+  }
 }

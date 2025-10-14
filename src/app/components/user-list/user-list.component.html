@@ -1,0 +1,42 @@
+<div class="user-list-container">
+  <h3>{{ title }}</h3>
+  
+  <div class="users-grid">
+    <div 
+      *ngFor="let user of users; " 
+      class="user-card"
+    >
+      <div class="user-header">
+        <h4 class="user-name">{{ user.name }}</h4>
+        <span class="username">@{{ user.username }}</span>
+      </div>
+      
+      <div class="user-contact">
+        <p class="email"> {{ user.email }}</p>
+        <p class="phone"> {{ user.phone }}</p>
+        <p class="website"> {{ user.website }}</p>
+      </div>
+      
+      <div class="user-company">
+        <p class="company-name">
+          <strong>Компания:</strong> {{ user.company.name }}
+        </p>
+        <p class="catch-phrase">
+          <em>"{{ user.company.catchPhrase }}"</em>
+        </p>
+        <p class="business">{{ user.company.bs }}</p>
+      </div>
+      
+      <div class="user-address">
+        <p class="address-title"><strong>Адрес:</strong></p>
+        <p class="street"> {{ user.address.street }}, {{ user.address.suite }}</p>
+        <p class="city"> {{ user.address.city }}, {{ user.address.zipcode }}</p>
+        <p class="geo"> Координаты: {{ user.address.geo.lat }}, {{ user.address.geo.lng }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="users.length === 0" class="no-users">
+    👤 Пользователи не найдены
+  </div>
+</div>
