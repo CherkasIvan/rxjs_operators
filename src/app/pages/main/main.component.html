@@ -1,0 +1,36 @@
+<div class="main-layout">
+  <aside class="sidebar" [class.sidebar-open]="isMenuOpen">
+    <div class="sidebar-header">
+      <h2>Angular Learning</h2>
+      <button class="close-btn" (click)="closeMenu()">×</button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul>
+        <li *ngFor="let item of navigationItems" 
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }">
+          <a [routerLink]="item.path" (click)="closeMenu()">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+      <h1>Angular Learning Platform</h1>
+    </header>
+
+    <div class="content-wrapper" [@routeAnimations]="getRouteAnimationData()">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <div class="overlay" 
+       [class.overlay-visible]="isMenuOpen" 
+       (click)="closeMenu()"></div>
+</div>
