@@ -1,0 +1,57 @@
+<div class="search-container">
+  <div class="search-row">
+    <div class="search-input-section">
+      <h3>Поиск пользователей</h3>
+      
+      <input 
+        #searchInput
+        type="text" 
+        placeholder="Начните вводить имя, email, телефон или компанию..."
+        class="search-input"
+        [value]="searchValue"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      >
+
+      <div *ngIf="showDropdown && allUsers.length > 0" class="dropdown dark-dropdown">
+        <div 
+          *ngFor="let user of allUsers; trackBy: trackByUserId" 
+          class="dropdown-item user-item"
+          (click)="selectUser(user)"
+        >
+          <div class="user-info">
+            <div class="user-name">{{ getUserDisplayName(user) }}</div>
+            <div class="user-details">{{ getUserDetails(user) }}</div>
+            <div class="user-address">{{ getUserAddress(user) }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="noResults" class="dropdown dark-dropdown">
+        <div class="dropdown-item no-results">
+          👤 Пользователь не найден. Попробуйте другой запрос.
+        </div>
+      </div>
+    </div>
+
+    <div class="user-list-section" *ngIf="autoSelectedUser">
+      <div class="auto-selection-notice">
+        <h4>🎯 Автоматически выбран пользователь:</h4>
+        <app-user-list 
+          [users]="[autoSelectedUser]" 
+          [title]="'Выбранный пользователь'">
+        </app-user-list>
+      </div>
+    </div>
+
+    <div class="user-list-section" *ngIf="manuallySelectedUser">
+      <div class="manual-selection-notice">
+        <h4>✅ Выбран пользователь:</h4>
+        <app-user-list 
+          [users]="[manuallySelectedUser]" 
+          [title]="'Выбранный пользователь'">
+        </app-user-list>
+      </div>
+    </div>
+  </div>
+</div>

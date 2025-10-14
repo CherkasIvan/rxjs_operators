@@ -3,6 +3,11 @@ html {
   color: white
 }
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 a {
   text-decoration: none;
   text-transform: uppercase;
@@ -29,4 +34,13 @@ button {
 
 p {
   color: white
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+
+  ol {
+    
+  }
 }

@@ -1,0 +1,18 @@
+<div class="stream-row">
+  <button class="stream-row__button" (click)="onButtonClick()">
+    {{buttonTitle}}
+  </button>
+
+  <div class="stream-row-container">
+    <div *ngIf="allNumbers.length" class="stream-row">
+      <div *ngFor="let number of allNumbers" class="stream-row-container__number">
+        <span>{{ number }}</span>
+      </div>
+    </div>
+    <div class="stream-row" *ngIf="streamValues.length">
+      <div *ngFor="let value of streamValues" class="stream-row-container__number-item">
+        <span>{{ value }}</span>
+      </div>
+    </div>
+  </div>
+</div>
