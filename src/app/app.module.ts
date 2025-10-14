@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './components/main/main.component';
+import { MainComponent } from './pages/main/main.component';
 import { StreamRowComponent } from './components/stream-row/stream-row.component';
 import { SelectableInputComponent } from './components/selectable-input/selectable-input.component';
 import { UserListComponent } from './components/user-list/user-list.component';
