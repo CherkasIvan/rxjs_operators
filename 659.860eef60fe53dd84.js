@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktraining_repo=self.webpackChunktraining_repo||[]).push([[659],{1659:(e,n,o)=>{o.r(n),o.d(n,{DashboardModule:()=>d});var u=o(9808),r=o(1223);let d=(()=>{class a{}return a.\u0275fac=function(l){return new(l||a)},a.\u0275mod=r.oAB({type:a}),a.\u0275inj=r.cJS({imports:[[u.ez]]}),a})()}}]);
