@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { fromEvent, map, distinctUntilChanged, debounceTime, filter, takeUntil, Subject } from 'rxjs';
-import { IUser } from 'src/app/models/user.model';
+import { IUser } from 'src/app/models/user/user.model';
 
 @Component({
   selector: 'app-selectable-input',

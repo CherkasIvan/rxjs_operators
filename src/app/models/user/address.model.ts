@@ -1,4 +1,4 @@
-import { IGeo } from './geo.model';
+import { IGeo } from "./geo.model";
 
 export interface IAddress {
   street: string;

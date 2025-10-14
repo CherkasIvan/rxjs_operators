@@ -1,6 +1,6 @@
 // user-list.component.ts
 import { Component, Input } from '@angular/core';
-import { IUser } from 'src/app/models/user.model';
+import { IUser } from 'src/app/models/user/user.model';
 
 @Component({
   selector: 'app-user-list',

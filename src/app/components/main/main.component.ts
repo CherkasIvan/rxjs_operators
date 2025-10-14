@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { filter, Subject, take, takeUntil, tap } from 'rxjs';
 import { StreamService } from '../../services/stream.service';
-import { IUser } from 'src/app/models/user.model';
+import { IUser } from 'src/app/models/user/user.model';
 
 @Component({
   selector: 'app-main',
