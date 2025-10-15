@@ -2,3 +2,64 @@
       <h2>Комплексные задания по TypeScript</h2>
       <p>Содержимое TypeScript заданий...</p>
     </div>
+    <div class="base-info">
+    <h2 class="title">
+      1. Освоить базовые типы и вывод типов
+    </h2>
+    <details class="description">
+      Задача:
+      <ul>
+        <ol>1. Объявите переменные с явной типизацией:
+            - age: number
+            - name: string 
+            - isActive: boolean
+            - scores: number[]</ol>
+        <ol>2. Объявите такие же переменные с type inference</ol>
+        <ol>3. Создайте tuple: [string, number, boolean]</ol>
+        <ol>4. Используйте enum для статусов: Active, Inactive, Pending</ol>
+        <ol>5. Создайте union type: string | number</ol>
+      </ul>
+    </details>
+    <article>
+          Ответ:
+      <ul>
+        <ol>1. Объявите переменные с явной типизацией:
+            - age: number <span class="answer">{{ age }}</span>
+            - name: string <span class="answer">{{ name }}</span>
+            - isActive: boolean <span class="answer">{{ isActive }}</span>
+            - scores: number[] <span *ngFor="let score of scores; let last = last" class="answer">
+            {{ score }}<span *ngIf="!last">, </span>
+          </span>
+          </ol> 
+        <ol>2. Объявите такие же переменные с type inference
+          <span *ngFor="let item of variables  | keyvalue;  let last = last" class="answer">
+           {{ item.key }}: {{ getType(item.value) }}<span *ngIf="!last">, </span>
+          </span>
+        </ol>
+        <ol>3. Создайте кортеж: [string, number, boolean] 
+          <span class="answer">{{createTupleString(user)}}</span>
+        </ol>
+        <ol>4. Используйте enum для статусов: Active, Inactive, Pending
+          <div class="answer">
+            ACTIVE: Code={{ getStatusCode(statuses.ACTIVE) }}, Type={{ getStatusType(statuses.ACTIVE) }}
+          </div>
+          <div class="answer">
+            INACTIVE: Code={{ getStatusCode(statuses.INACTIVE) }}, Type={{ getStatusType(statuses.INACTIVE) }}
+          </div>
+          <div class="answer">
+            PENDING: Code={{ getStatusCode(statuses.PENDING) }}, Type={{ getStatusType(statuses.PENDING) }}
+          </div>
+        </ol>
+
+        <ol>5. Создайте union type: string | number
+          <div class="answer">
+            Here can be {{ returnValueType('where value could be') }} as a string and it could be as number: {{ returnValueType(17) }}
+          </div>
+        </ol>
+      </ul>
+    </article>
+  </div>
+
+
+
+
